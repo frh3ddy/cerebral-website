@@ -46,7 +46,7 @@ function setTodos(input, state) {
   state.set(['todos'], input.todos);
 }
 
-export default getTodos;
+export default setTodos;
 ```
 
 And that is how you grab stuff from server and set it. Now you might ask why you can not just set it inside the asynchronous action? Actually the initial version of Cerebral remembered your signals, not your state changes. So when remembering state it would rerun the actual signals. Later this has been changed to analyzing signals as a "static tree". Then it adds whatever mutations done to that tree. So remembering state does not run the actual signals anymore. That said, we found splitting asynchronous fetching/changes and actually changing the state of your application is a good separation of concerns. The reason is that asynchronous stuff can fail and you want to express how you solve those scenarios in your signal definition, not hide it inside an action.
